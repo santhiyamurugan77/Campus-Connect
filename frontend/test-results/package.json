@@ -1,0 +1,12 @@
+{
+  "name": "campusconnect-test-results",
+  "version": "1.0.0",
+  "description": "Excel reporting utility for CampusConnect automated testing",
+  "main": "generate_reports.js",
+  "scripts": {
+    "report": "node generate_reports.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}

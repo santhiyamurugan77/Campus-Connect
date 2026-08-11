@@ -1,0 +1,13 @@
+{
+  "name": "campusconnect-load-tests",
+  "version": "1.0.0",
+  "description": "Artillery performance load tests for CampusConnect",
+  "scripts": {
+    "load-test": "node run_load_test.js"
+  },
+  "dependencies": {
+    "artillery": "^2.0.19",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0"
+  }
+}

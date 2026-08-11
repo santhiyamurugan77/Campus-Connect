@@ -1,0 +1,67 @@
+[
+  {
+    "id": "TC-MOBILE-001",
+    "module": "Login",
+    "type": "Positive / Functional",
+    "objective": "Verify successful flow for the Login screen with valid parameters under standard conditions.",
+    "preconditions": "App is launched and user is on the Login screen. Database connection to Supabase is active.",
+    "input": "Valid test data tailored for the Login module.",
+    "steps": "1. Open the Login interface.\n2. Fill in all required elements with valid inputs.\n3. Click/Tap the primary action button.",
+    "expected": "Operation completes successfully. UI redirects to the next logical screen or updates state without error.",
+    "status": "FAIL",
+    "duration": "0ms",
+    "defectInfo": "Expected com.example.campusconnect but found com.instagram.android"
+  },
+  {
+    "id": "TC-MOBILE-002",
+    "module": "Login",
+    "type": "Negative / Validation",
+    "objective": "Verify validation handling when submitting the Login form with empty required fields.",
+    "preconditions": "App is launched and user is on the Login form.",
+    "input": "All input fields left blank.",
+    "steps": "1. Navigate to Login screen.\n2. Leave all fields empty.\n3. Click/Tap the submit action button.",
+    "expected": "The system blocks submission and displays specific validation warnings for each required field.",
+    "status": "PASS",
+    "duration": "170ms",
+    "defectInfo": "N/A"
+  },
+  {
+    "id": "TC-MOBILE-003",
+    "module": "Login",
+    "type": "Negative / Validation",
+    "objective": "Verify validation response on the Login screen when invalid format data is inputted.",
+    "preconditions": "User is on the Login view.",
+    "input": "Malformed data formats (e.g. invalid emails, symbols in names, past dates).",
+    "steps": "1. Navigate to Login form.\n2. Input malformed strings or invalid values.\n3. Click/Tap the action button.",
+    "expected": "The application displays format-specific validation errors and refuses to transmit malformed inputs.",
+    "status": "PASS",
+    "duration": "10154ms",
+    "defectInfo": "N/A"
+  },
+  {
+    "id": "TC-MOBILE-004",
+    "module": "Login",
+    "type": "UI/UX / Responsive",
+    "objective": "Verify UI visual layout, typography, element spacing, and alignment on the Login screen.",
+    "preconditions": "User is viewing the Login interface.",
+    "input": "Default page load.",
+    "steps": "1. Open Login screen.\n2. Toggle screen orientation between Portrait and Landscape.\n3. Inspect screen scrolling.",
+    "expected": "All components, icons, and text labels render clearly without overlapping, clipping, or horizontal overflow.",
+    "status": "PASS",
+    "duration": "30371ms",
+    "defectInfo": "N/A"
+  },
+  {
+    "id": "TC-MOBILE-005",
+    "module": "Login",
+    "type": "Boundary / Validation",
+    "objective": "Verify input field length boundaries and characters constraints inside the Login forms.",
+    "preconditions": "User is editing text inputs in the Login component.",
+    "input": "Extremely long text strings (255+ characters) and special Unicode characters.",
+    "steps": "1. Focus on the text fields in the Login form.\n2. Paste a long text string of 255 characters.\n3. Verify input limits.",
+    "expected": "The form either truncates text at the max boundary limit or displays character limit validation errors.",
+    "status": "PASS",
+    "duration": "10386ms",
+    "defectInfo": "N/A"
+  }
+]

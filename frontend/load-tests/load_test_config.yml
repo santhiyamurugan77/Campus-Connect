@@ -1,0 +1,29 @@
+# CampusConnect Artillery Performance Load Test Configuration
+config:
+  # The target URL is overridden at runtime using the environment variable LOAD_TEST_BASE_URL
+  target: "http://placeholder-target.local"
+  phases:
+    - duration: 60                 # 1 minute duration
+      arrivalRate: 5               # Start with 5 new virtual users per second
+      rampTo: 25                   # Ramp up to 25 new virtual users per second
+      name: "Ramp up load to simulate 300+ total virtual users over 1 minute"
+  
+  defaults:
+    headers:
+      content-type: "application/json"
+      accept: "application/json"
+
+scenarios:
+  - name: "Simulate student exploring events dashboard"
+    flow:
+      # 1. Fetch public events list
+      - get:
+          url: "/events"
+      # 2. Simulate short delay representing reading dashboard
+      - think: 2
+      # 3. Use AI Guide endpoint (simulates typing queries)
+      - post:
+          url: "/events"
+          json:
+            category: "TECH"
+            city: "Chennai"

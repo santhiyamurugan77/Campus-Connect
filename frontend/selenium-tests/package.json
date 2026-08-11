@@ -1,0 +1,16 @@
+{
+  "name": "campusconnect-selenium-tests",
+  "version": "1.0.0",
+  "description": "Selenium automated end-to-end web tests for CampusConnect",
+  "main": "selenium_test_suite.js",
+  "scripts": {
+    "test": "mocha selenium_test_suite.js --timeout 60000"
+  },
+  "dependencies": {
+    "chromedriver": "^127.0.0",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "mocha": "^10.4.0",
+    "selenium-webdriver": "^4.20.0"
+  }
+}
