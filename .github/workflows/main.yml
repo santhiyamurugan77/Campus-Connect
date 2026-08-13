@@ -1,0 +1,159 @@
+name: CampusConnect - Complete Testing Report
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+
+  testing-summary:
+    name: CampusConnect Testing Summary
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout CampusConnect Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Testing Reports
+        id: reports
+        shell: bash
+        run: |
+          echo "======================================"
+          echo " CampusConnect Testing Verification"
+          echo "======================================"
+
+          REPORTS=(
+            "11_Categories_Testing_Report.xlsx"
+            "Appium_Testing.xlsx"
+            "Comprehension_Testing.xlsx"
+            "Load_Testing.xlsx"
+            "Master_Audit_Report.xlsx"
+            "Selenium_Testing.xlsx"
+            "Vulnerability_Testing.xlsx"
+          )
+
+          missing=0
+
+          for report in "${REPORTS[@]}"
+          do
+            if [ -f "$report" ]; then
+              echo "FOUND: $report"
+            else
+              echo "MISSING: $report"
+              missing=$((missing + 1))
+            fi
+          done
+
+          echo ""
+
+          if [ "$missing" -eq 0 ]; then
+            echo "report_status=PASS" >> "$GITHUB_OUTPUT"
+            echo "All required testing reports are present."
+          else
+            echo "report_status=FAIL" >> "$GITHUB_OUTPUT"
+            echo "$missing required report(s) are missing."
+            exit 1
+          fi
+
+      - name: Create GitHub Actions Test Summary
+        shell: bash
+        run: |
+          cat <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          # 🚀 CampusConnect Testing Report
+
+          ## Testing Modules
+
+          | Testing Module | Report | Status |
+          |---|---|---|
+          | 📱 Appium Mobile E2E | Appium_Testing.xlsx | ✅ Report Available |
+          | 🌐 Selenium Web E2E | Selenium_Testing.xlsx | ✅ Report Available |
+          | 🔐 Vulnerability Testing | Vulnerability_Testing.xlsx | ✅ Report Available |
+          | ⚡ Load Testing | Load_Testing.xlsx | ✅ Report Available |
+          | 🧪 Comprehension Testing | Comprehension_Testing.xlsx | ✅ Report Available |
+          | 📊 11 Categories Testing | 11_Categories_Testing_Report.xlsx | ✅ Report Available |
+          | 📋 Master Audit | Master_Audit_Report.xlsx | ✅ Report Available |
+
+          ## 📦 Test Evidence
+
+          All required Excel testing reports were successfully found in the repository.
+
+          The Excel files are uploaded separately as GitHub Actions artifacts below.
+
+          ## ⚠️ Important
+
+          **Report availability is not the same as test execution.**
+
+          The PASS/FAIL result of individual test cases must be taken from the
+          corresponding Excel report or from an actual automated test execution.
+
+          ## 🏁 Deployment Evidence
+
+          Repository testing artifacts:
+          - Appium mobile testing
+          - Selenium web testing
+          - Vulnerability testing
+          - Load/baseline testing
+          - Comprehension testing
+          - Category testing
+          - Master audit report
+
+          EOF
+
+      # ---------------------------------------------------------
+      # INDIVIDUAL EXCEL REPORT ARTIFACTS
+      # ---------------------------------------------------------
+
+      - name: Upload Appium Testing Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Appium-Testing-Report
+          path: Appium_Testing.xlsx
+          if-no-files-found: error
+
+      - name: Upload Selenium Testing Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Selenium-Testing-Report
+          path: Selenium_Testing.xlsx
+          if-no-files-found: error
+
+      - name: Upload Vulnerability Testing Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Vulnerability-Testing-Report
+          path: Vulnerability_Testing.xlsx
+          if-no-files-found: error
+
+      - name: Upload Load Testing Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Load-Testing-Report
+          path: Load_Testing.xlsx
+          if-no-files-found: error
+
+      - name: Upload Comprehension Testing Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Comprehension-Testing-Report
+          path: Comprehension_Testing.xlsx
+          if-no-files-found: error
+
+      - name: Upload Categories Testing Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Categories-Testing-Report
+          path: 11_Categories_Testing_Report.xlsx
+          if-no-files-found: error
+
+      - name: Upload Master Audit Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Master-Audit-Report
+          path: Master_Audit_Report.xlsx
+          if-no-files-found: error
